@@ -5,4 +5,4 @@ pdf*
 *.ini*
 *.lock
 vendor
-composer.json
+
