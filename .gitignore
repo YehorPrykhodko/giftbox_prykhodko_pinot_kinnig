@@ -1,0 +1,9 @@
+test*
+pdf*
+.gitignore
+.idea
+*.iml
+*.ini
+*.lock
+vendor
+
