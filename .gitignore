@@ -3,7 +3,8 @@ pdf*
 .gitignore
 .idea
 *.iml
-*.ini
+*.ini*
 *.lock
 vendor
+
 
