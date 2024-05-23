@@ -1,5 +1,5 @@
 <?php
-namespace gift\appli\conf; 
+namespace gift\appli\app\actions;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 

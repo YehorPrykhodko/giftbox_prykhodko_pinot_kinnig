@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use gift\appli\conf\BoxCreateGet;
-use gift\appli\conf\BoxCreatePost;
-use gift\appli\conf\CategoriesAfficheId;
-use gift\appli\conf\CategoriesAffiches;
-use gift\appli\conf\PrestationsAffiche;
-use gift\appli\conf\Racine;
+use gift\appli\app\actions\BoxCreateGet;
+use gift\appli\app\actions\BoxCreatePost;
+use gift\appli\app\actions\CategoriesAfficheId;
+use gift\appli\app\actions\CategoriesAffiches;
+use gift\appli\app\actions\PrestationsAffiche;
+use gift\appli\app\actions\Racine;
 use gift\appli\models\Categorie;
 use gift\appli\models\Prestation;
 
