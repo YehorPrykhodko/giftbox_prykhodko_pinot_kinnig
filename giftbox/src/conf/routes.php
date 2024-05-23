@@ -13,24 +13,24 @@ use gift\appli\models\Categorie;
 use gift\appli\models\Prestation;
 
 return function( \Slim\App $app): \Slim\App {
-/* home */
+	/* home */
 
-$app->post('/box/create[/]', BoxCreatePost::class);
+	$app->post('/box/create[/]', BoxCreatePost::class);
 
-$app->get('/box/create[/]', BoxCreateGet::class);
-
-
-$app->get('[/]',Racine::class);
+	$app->get('/box/create[/]', BoxCreateGet::class);
 
 
-$app->get('/prestations[/]',PrestationsAffiche::class);
+	$app->get('[/]',Racine::class);
 
-$app->get('/categories[/]',CategoriesAffiches::class);
+
+	$app->get('/prestations[/]',PrestationsAffiche::class);
+
+	$app->get('/categories[/]',CategoriesAffiches::class);
 
 	$app->get('/categories/{id}[/]',CategoriesAfficheId::class);
 
 
 
-    return $app;
+	return $app;
 
-    };
+};
