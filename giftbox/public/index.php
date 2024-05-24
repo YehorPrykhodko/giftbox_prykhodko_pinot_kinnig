@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
 
-// echo "Index giftbox";
-require_once __DIR__ ."/app/index.php";
+// echo "Index public giftbox";
+require_once __DIR__ ."/../src/app/bootstrap.php";
 
 // require_once __DIR__ . '/../src/vendor/autoload.php';
 //

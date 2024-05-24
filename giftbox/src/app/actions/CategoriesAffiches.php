@@ -1,5 +1,6 @@
 <?php
 namespace gift\appli\app\actions;
+use Error;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use gift\appli\models\Categorie;
@@ -7,6 +8,7 @@ use gift\appli\models\Categorie;
 class CategoriesAffiches {
 
 public function __invoke(Request $rq, Response $rs, $args):Response{
+        try{
     $cat=Categorie::select("id","libelle")->get();
     $htmlCat="";
     foreach($cat as $c){
@@ -26,6 +28,9 @@ public function __invoke(Request $rq, Response $rs, $args):Response{
         $htmlCat
         </div>
         END);
+        }catch(Error $e){
+            var_dump($e);
+        }
     return $rs;
 }
 

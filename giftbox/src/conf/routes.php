@@ -14,12 +14,14 @@ use gift\appli\models\Prestation;
 
 return function( \Slim\App $app): \Slim\App {
 	/* home */
-
 	$app->post('/box/create[/]', BoxCreatePost::class);
 
 	$app->get('/box/create[/]', BoxCreateGet::class);
 
-
+	  $app->get('/test[/]', function(Request $rq, Response $rs, $args){
+	     $rs->getBody()->write("<h4> bonjour test</h4>");
+	     return($rs);
+	     });
 	$app->get('[/]',Racine::class);
 
 
