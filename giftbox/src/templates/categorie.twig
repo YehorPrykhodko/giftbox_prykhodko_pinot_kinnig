@@ -1,0 +1,7 @@
+{% for cat in categories %}
+<div class="categorie">
+<h2 class="titreCategorie">{{cat.libelle}}</h2>
+<p class="descriptionCategorie">{{cat.description}}</p>
+<p>Id: {{cat.id}}</p>
+</div>
+{% endfor %}

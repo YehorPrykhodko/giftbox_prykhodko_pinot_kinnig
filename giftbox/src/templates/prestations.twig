@@ -1,0 +1,12 @@
+<div class="prestations">
+{%for pres in prestations%}
+<div class="prestation">
+
+<div class="libellePres">{{pres.libelle}}</div>
+<div class = "idPres">{{pres.id}}</div>
+<div class ="descriptionPres">{{pres.description}}</div> 
+<div class="idCat">{{pres.id_cat}}</div>
+
+</div>
+{%endfor%}
+</div>

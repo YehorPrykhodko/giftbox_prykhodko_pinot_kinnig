@@ -2,7 +2,8 @@ networks:
   giftbox.net:
     driver: bridge
 services:
-  phpc:
+  #service serveur web+php
+  php:
     image: canals/php:latest
     volumes:
       - ./public:/var/www/html
@@ -13,8 +14,12 @@ services:
       - "3080:80"
     networks:
       - giftbox.net
+
+  #Service serveur sql mariadb
   sql:
     image: mariadb:latest
+
+    #/!\ Requiert un fichier .env avec les variables suivantes:
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_USER}
@@ -24,7 +29,6 @@ services:
     networks:
       giftbox.net:
         aliases:
-          - sql.db
           - giftbox.db
   adminer:
     image: adminer:latest
