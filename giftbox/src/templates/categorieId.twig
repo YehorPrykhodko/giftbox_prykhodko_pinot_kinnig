@@ -1,13 +1,14 @@
 {% extends "squelette.html" %}
 
-{% block titre %}Categories{% endblock %}
-
+{% block titre %}Formulaire Box{% endblock %}
 {% block main %}
+<a href="{{ url_for('listCategories')}}">Retour à la liste des catégories </a>
 {% for cat in categories %}
 <div class="categorie">
 <a href="{{ url_for('categorieId', {id:  cat.id})}}"><h2 class="titreCategorie">{{cat.libelle}}</h2></a>
 <p class="descriptionCategorie">{{cat.description}}</p>
 <p>Id: {{cat.id}}</p>
+<a href="{{url_for('presta2cat', {id: cat.id})}}">Prestations de cette catégorie</a>
 </div>
 {% endfor %}
 {% endblock %}

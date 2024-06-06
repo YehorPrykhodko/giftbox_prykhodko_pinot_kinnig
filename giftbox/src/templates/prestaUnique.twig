@@ -1,10 +1,9 @@
 {% extends "squelette.html" %}
 
-{% block titre %}Prestations{% endblock %}
-
-
+{% block titre %}Formulaire Box{% endblock %}
 {% block main %}
 <div class="prestations">
+<a href="{{url_for('listPrestations')}}">Retour à la liste des prestations</a>
 {%for pres in prestations%}
 <div class="prestation">
 

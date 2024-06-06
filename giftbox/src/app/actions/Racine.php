@@ -6,24 +6,15 @@ use PDO;
 use PDOException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Views\Twig;
 use gift\appli\models\Categorie;
 use gift\appli\models\Prestation;
 use gift\appli\utils\TestUtils;
 class Racine {
 
-public function __invoke(Request $rq, Response $rs, $args):Response{
-	try{
-	$test = new TestUtils();
-	// $test->hello();
-	}catch(Error $e){
-	echo($e);
+	public function __invoke(Request $rq, Response $rs, $args):Response{
+		$view=Twig::fromRequest($rq);
+		return($view->render($rs,'accueil.twig',[]));
 	}
-$acceuil=<<<END
-	<h1> Giftbox accueil</h1>
-		<a href="/categories"> Catégories </a>
-END;
-	  $rs->getBody()->write($acceuil);
-	return($rs);
-}
 
 }

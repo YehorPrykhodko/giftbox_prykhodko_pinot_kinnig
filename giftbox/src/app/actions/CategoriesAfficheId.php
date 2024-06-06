@@ -33,7 +33,7 @@ class CategoriesAfficheId {
                 // }
         // $rs->getBody()->write($catDetails);
                 $view=Twig::fromRequest($rq);
-                return $view->render($rs, 'categorie.twig', ['categories'=>$cat]);
+                return $view->render($rs, 'categorieId.twig', ['categories'=>$cat]);
 
         }
 

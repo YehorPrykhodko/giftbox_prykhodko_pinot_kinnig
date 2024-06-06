@@ -10,6 +10,8 @@ use gift\appli\app\actions\BoxCreatePost;
 use gift\appli\app\actions\CategoriesAfficheId;
 use gift\appli\app\actions\CategoriesAffiches;
 use gift\appli\app\actions\PrestationsAffiche;
+use gift\appli\app\actions\PrestationsAfficheId;
+use gift\appli\app\actions\PrestationsDeCategorie;
 use gift\appli\app\actions\Racine;
 use gift\appli\app\exceptions\TeaPotException;
 use gift\appli\models\Categorie;
@@ -19,7 +21,7 @@ return function( \Slim\App $app): \Slim\App {
 	/* home */
 	$app->post('/box/create[/]', BoxCreatePost::class); //twigOk
 
-	$app->get('/box/create[/]', BoxCreateGet::class)->setName('createBoxForm');//twigOk
+	$app->get('/box/create[/]', BoxCreateGet::class)->setName('boxCreateForm');//twigOk
 
 	$app->get('/test[/]', function(Request $rq, Response $rs, $args){
 		$cat=Prestation::where("tarif",">","30")->get();
@@ -31,14 +33,18 @@ return function( \Slim\App $app): \Slim\App {
 		$view=Twig::fromRequest($rq);
 		return($view->render($rs,'testPrestation.twig',["prestations"=> $cat]));
 	     });
-	$app->get('[/]',Racine::class);
+	$app->get('[/]',Racine::class)->setName('racine');
 
 
-	$app->get('/prestations[/]',PrestationsAffiche::class);
+	$app->get('/prestationsDeCategorie/{id}[/]',PrestationsDeCategorie::class)->setName('presta2cat');
 
-	$app->get('/categories[/]',CategoriesAffiches::class); 
+	$app->get('/prestations[/]',PrestationsAffiche::class)->setName('listPrestations');
 
-	$app->get('/categories/{id}[/]',CategoriesAfficheId::class);
+	$app->get('/prestations/{id}[/]',PrestationsAfficheId::class)->setName('prestationId');
+
+	$app->get('/categories[/]',CategoriesAffiches::class)->setName('listCategories'); 
+
+	$app->get('/categories/{id:\d+}[/]',CategoriesAfficheId::class)->setName('categorieId');
 
 
 

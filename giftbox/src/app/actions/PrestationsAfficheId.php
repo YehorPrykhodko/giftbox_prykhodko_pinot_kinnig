@@ -7,13 +7,13 @@ use Slim\Exception\HttpNotFoundException;
 use Slim\Views\Twig;
 use gift\appli\models\Prestation;
 
-class PrestationsAffiche {
+class PrestationsAfficheId extends AbstractAction {
 
     public function __invoke(Request $rq, Response $rs, $args):Response{
-	    $prestation=Prestation::get();
+	    $prestation=Prestation::where("id","=",$args['id'])->get();
 
 	    $view=Twig::fromRequest($rq);
-	    return($view->render($rs, 'prestations.twig',['prestations'=>$prestation]));
+	    return($view->render($rs, 'prestaUnique.twig',['prestations'=>$prestation]));
 
     }
 

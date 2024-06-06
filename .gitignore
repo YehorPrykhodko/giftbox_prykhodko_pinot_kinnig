@@ -6,4 +6,5 @@ pdf*
 *.ini*
 *.lock
 vendor
+cache*
 
