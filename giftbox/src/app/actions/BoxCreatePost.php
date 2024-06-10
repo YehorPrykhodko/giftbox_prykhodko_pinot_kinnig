@@ -1,8 +1,11 @@
 <?php
 namespace gift\appli\app\actions;
+use gift\appli\core\services\CatalogueEloquent;
+use gift\appli\core\domain\entities\Box;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
+use const http\Client\Curl\FEATURES;
 
 class BoxCreatePost {
 
@@ -15,9 +18,9 @@ class BoxCreatePost {
 		// 	END;
 		// $rs->getBody()->write($createBoxHtml);
 		// return($rs);
-		$data=[ "description"=> $_POST['descriptionFormBox'],
-			"libelle"=> $_POST['libelleFormBox'],
-			"montant"=>   $_POST['montantFormBox']];
+		$data=[ "description"=> filter_var($_POST['descriptionFormBox'],FILTER_SANITIZE_SPECIAL_CHARS),
+			"libelle"=> filter_var($_POST['libelleFormBox'],FILTER_SANITIZE_SPECIAL_CHARS),
+			"montant"=>   filter_var($_POST['montantFormBox'],FILTER_SANITIZE_NUMBER_FLOAT)];
 		$view=Twig::fromRequest($rq);
 		return($view->render($rs, 'afficheFormulaireBox.twig',$data));
 	}

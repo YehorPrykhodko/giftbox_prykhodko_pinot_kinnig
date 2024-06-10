@@ -14,8 +14,8 @@ use gift\appli\app\actions\PrestationsAfficheId;
 use gift\appli\app\actions\PrestationsDeCategorie;
 use gift\appli\app\actions\Racine;
 use gift\appli\app\exceptions\TeaPotException;
-use gift\appli\models\Categorie;
-use gift\appli\models\Prestation;
+use gift\appli\core\domain\entities\Categorie;
+use gift\appli\core\domain\entities\Prestation;
 
 return function( \Slim\App $app): \Slim\App {
 	/* home */
@@ -24,14 +24,13 @@ return function( \Slim\App $app): \Slim\App {
 	$app->get('/box/create[/]', BoxCreateGet::class)->setName('boxCreateForm');//twigOk
 
 	$app->get('/test[/]', function(Request $rq, Response $rs, $args){
-		$cat=Prestation::where("tarif",">","30")->get();
-		
-		$routeContext=RouteContext::fromRequest($rq);
-		$routeParser=$routeContext->getRouteParser();
-		$url = $routeParser->urlFor('createBoxForm');
-		echo $url;
+
+        $categorie=['libelle'=>'superlibelle',
+            'description'=>'abba'];
+        $cata=new \gift\appli\core\services\CatalogueEloquent();
+        $cata->createCategorie($categorie);
 		$view=Twig::fromRequest($rq);
-		return($view->render($rs,'testPrestation.twig',["prestations"=> $cat]));
+		return($view->render($rs,'presta2cat.twig',[]));
 	     });
 	$app->get('[/]',Racine::class)->setName('racine');
 

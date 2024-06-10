@@ -2,17 +2,19 @@
 
 {% block titre %}Formulaire Box{% endblock %}
 {% block main %}
-<div class="prestations">
-<a href="{{url_for('listPrestations')}}">Retour à la liste des prestations</a>
-{%for pres in prestations%}
-<div class="prestation">
+    <div class="prestations">
+        <a href="{{ url_for('listPrestations') }}">Retour à la liste des prestations</a>
+        {% for pres in prestations %}
+            <div class="prestation">
 
-<a href="{{url_for('prestationId',{id:pres.id})}}"><div class="libellePres">{{pres.libelle}}</div></a>
-<div class = "idPres">{{pres.id}}</div>
-<div class ="descriptionPres">{{pres.description}}</div> 
-<div class="idCat">{{pres.id_cat}}</div>
+                <a href="{{ url_for('prestationId',{id:pres.id}) }}">
+                    <div class="libellePres">{{ pres.libelle }}</div>
+                </a>
+                <div class="idPres">{{ pres.id }}</div>
+                <div class="descriptionPres">{{ pres.description }}</div>
+                <div class="idCat">{{ pres.id_cat }}</div>
 
-</div>
-{%endfor%}
-</div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

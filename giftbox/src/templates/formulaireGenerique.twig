@@ -2,14 +2,15 @@
 
 {% block titre %}Formulaire Box{% endblock %}
 {% block main %}
-<form class="{{class}}" method="{{method}}">
+    <form class="{{ class }}" method="{{ method }}">
 
-{% for champ in champs%}
+        {% for champ in champs %}
 
-<label for="{{champ.for}}" >{{champ.label}}</label>
-<input type="{{champ.type}}" id="{{champ.for}}" name="{{champ.for}}" {% if champ.required %} required {%endif%}>
-{%endfor%}
-<input type="submit" value="Submit">
+            <label for="{{ champ.for }}">{{ champ.label }}</label>
+            <input type="{{ champ.type }}" id="{{ champ.for }}"
+                   name="{{ champ.for }}" {% if champ.required %} required {% endif %}>
+        {% endfor %}
+        <input type="submit" value="Submit">
 
-</form>
+    </form>
 {% endblock %}

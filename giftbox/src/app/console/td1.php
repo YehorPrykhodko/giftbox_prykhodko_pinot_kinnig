@@ -10,9 +10,9 @@ $db->addConnection(parse_ini_file(__DIR__ . '/../../conf/gift.db.conf.ini.dist')
 $db->setAsGlobal(); 
 $db->bootEloquent();
 
-use gift\appli\models\Box;
-use gift\appli\models\Prestation;
-use gift\appli\models\Categorie;
+use gift\appli\core\domain\entities\Box;
+use gift\appli\core\domain\entities\Prestation;
+use gift\appli\core\domain\entities\Categorie;
 
 echo "Exercice 2 ";
 echo "Question 1:\n";
@@ -96,5 +96,11 @@ foreach($boxcree as $b){
 	}
 }
 
+$presta=Prestation::whereHas('categories', function($q){
+$q->where('id','=',3);
+});
+foreach($presta as $p){
+echo $presta->id.'\n';
+}
 
 

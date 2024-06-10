@@ -2,22 +2,24 @@
 
 {% block titre %}Formulaire Box{% endblock %}
 {% block main %}
-<div class="prestations">
-{%for c in cat%}
-<div class="categorie">
-<a href="{{url_for('categorieId',{id : c.id})}}"><div class="libelleCat">Catégorie : {{c.libelle}}</div></a>
-</div>
+    <div class="prestations">
+        {% for c in cat %}
+            <div class="categorie">
+                <a href="{{ url_for('categorieId',{id : c.id}) }}">
+                    <div class="libelleCat">Catégorie : {{ c.libelle }}</div>
+                </a>
+            </div>
 
-{%for p in c.prestations%}
-<div class="prestation">
+            {% for p in c.prestations %}
+                <div class="prestation">
 
-<div class="libellePres">{{p.libelle}}</div>
-<div class = "idPres">{{p.id}}</div>
-<div class ="descriptionPres">{{p.description}}</div> 
+                    <div class="libellePres">{{ p.libelle }}</div>
+                    <div class="idPres">{{ p.id }}</div>
+                    <div class="descriptionPres">{{ p.description }}</div>
 
-</div>
-{%endfor%}
+                </div>
+            {% endfor %}
 
-{%endfor%}
-</div>
+        {% endfor %}
+    </div>
 {% endblock %}
