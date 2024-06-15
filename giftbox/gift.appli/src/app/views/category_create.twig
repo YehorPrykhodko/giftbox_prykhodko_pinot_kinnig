@@ -1,0 +1,8 @@
+<form action="/categories/create" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="description">Desc:</label>
+    <input type="text" id="description" name="description">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit">Create categories</button>
+</form>
