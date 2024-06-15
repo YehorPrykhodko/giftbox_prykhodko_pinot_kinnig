@@ -1,0 +1,7 @@
+{% extends "squelette.html" %}
+
+{% block titre %}Categorie crée{% endblock %}
+{% block main %}
+    <p>Catégorie crée</p>
+    <a href="{{ url_for('categorieId',{id:id}) }}">La voir</a>
+{% endblock %}

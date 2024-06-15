@@ -1,0 +1,18 @@
+{% extends "squelette.html" %}
+
+{% block titre %}Formulaire Categorie{% endblock %}
+{% block main %}
+    <form class="formulaireCategorie" method="post">
+
+        <label for="libelle">Libelle</label>
+        <input type="text" id="champLibelle"
+               name="libelle" required>
+
+        <label for="description">Description</label>
+        <input type="text" id="champDescription"
+               name="description" required>
+
+        <input type="submit" value="Submit">
+
+    </form>
+{% endblock %}

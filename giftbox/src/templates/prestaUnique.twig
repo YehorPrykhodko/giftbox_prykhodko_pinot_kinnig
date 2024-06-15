@@ -4,17 +4,20 @@
 {% block main %}
     <div class="prestations">
         <a href="{{ url_for('listPrestations') }}">Retour à la liste des prestations</a>
-        {% for pres in prestations %}
             <div class="prestation">
 
-                <a href="{{ url_for('prestationId',{id:pres.id}) }}">
-                    <div class="libellePres">{{ pres.libelle }}</div>
+                <a href="{{ url_for('prestationId',{id:id}) }}">
+                    <div class="libellePres">{{ libelle }}</div>
                 </a>
-                <div class="idPres">{{ pres.id }}</div>
-                <div class="descriptionPres">{{ pres.description }}</div>
-                <div class="idCat">{{ pres.id_cat }}</div>
+                <div class="idPres">{{ id }}</div>
+                <div class="descriptionPres">{{description }}</div>
+                <div class="urlPres">{{ url }}</div>
+                <div class="unitePres">{{ unite }}</div>
+                <div class="tarifPres">{{ tarif }}</div>
+                <div class="imgPres">{{ img }}</div>
+                <div class="cat_idPres">{{ cat_id }}</div>
 
+                <a href="{{ url_for('updatePrestation',{id:id}) }}">La modifier</a>
             </div>
-        {% endfor %}
     </div>
 {% endblock %}

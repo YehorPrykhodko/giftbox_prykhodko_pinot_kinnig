@@ -21,13 +21,6 @@ class Prestation extends \Illuminate\Database\Eloquent\Model
     protected $primaryKey = 'id';
     public $timestamps = false;
     public $keyType = 'string';
-    public $fillable = ['libelle',
-        'description',
-        'url',
-        'unite',
-        'tarif',
-        'img',
-        'cat_id'];
 
     public function boxs()
     {
@@ -39,5 +32,11 @@ class Prestation extends \Illuminate\Database\Eloquent\Model
     public function categorie()
     {
         return $this->belongsTo('gift\appli\core\domain\entities\Categorie', "cat_id");
+    }
+
+    public static function updateCategorieId($idPresta,$idCat){
+        $presta=Prestation::where('id','=',$idPresta);
+        $presta->id_cat=$idCat;
+        $presta->save();
     }
 }

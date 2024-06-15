@@ -7,9 +7,8 @@ use gift\appli\infrastructure\Eloquent;
 use \Slim\Factory\AppFactory;
 
 
+session_start();
 Eloquent::init(__DIR__.'/../conf/gift.db.conf.ini.dist');
-
-
 
 // try{
 $app = AppFactory::create();

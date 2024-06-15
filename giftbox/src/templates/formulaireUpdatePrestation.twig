@@ -1,0 +1,52 @@
+{% extends "squelette.html" %}
+
+{% block titre %}Formulaire Prestation{% endblock %}
+{% block main %}
+    <form class="formulaireModificationPrestation" method="post">
+
+        <label for="libelle">Libelle</label>
+        <input type="text" id="champLibelle"
+               name="libelle"
+               value="{{ presta.libelle }}"
+               required>
+
+        <label for="description">Description</label>
+        <input type="text" id="champDescription"
+               name="description"
+               value="{{ presta.description }}"
+               required>
+
+        <label for="url">Url</label>
+        <input type="text" id="champUrl"
+               name="url"
+               value="{{ presta.url }}"
+               required>
+
+        <label for="unite">Unite</label>
+        <input type="text" id="champUnite"
+               name="unite"
+               value="{{ presta.unite }}"
+               required>
+
+        <label for="tarif">Tarif</label>
+        <input type="text" id="champTarif"
+               name="tarif"
+               value="{{ presta.tarif }}"
+               required>
+
+        <label for="img">Img</label>
+        <input type="text" id="champImg"
+               name="img"
+               value="{{ presta.img }}"
+               required>
+
+        <label for="cat_id">Cat_id</label>
+        <input type="text" id="champCat_id"
+               name="cat_id"
+               value="{{ presta.cat_id }}"
+               required>
+
+        <input type="submit" value="Submit">
+
+    </form>
+{% endblock %}

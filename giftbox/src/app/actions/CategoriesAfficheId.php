@@ -18,7 +18,7 @@ class CategoriesAfficheId
         $cata = new CatalogueEloquent();
         $cat = $cata->getCategorieById($args['id']);
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'categorieId.twig', ['categories' => $cat]);
+        return $view->render($rs, 'categorieId.twig', $cat);
 
     }
 

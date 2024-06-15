@@ -3,12 +3,10 @@
 {% block titre %}Categorie Par ID{% endblock %}
 {% block main %}
     <a href="{{ url_for('listCategories') }}">Retour à la liste des catégories </a>
-    {% for cat in categories %}
-        <div class="categorie">
-            <a href="{{ url_for('categorieId', {id:  cat.id}) }}"><h2 class="titreCategorie">{{ cat.libelle }}</h2></a>
-            <p class="descriptionCategorie">{{ cat.description }}</p>
-            <p>Id: {{ cat.id }}</p>
-            <a href="{{ url_for('presta2cat', {id: cat.id}) }}">Prestations de cette catégorie</a>
-        </div>
-    {% endfor %}
+    <div class="categorie">
+        <a href="{{ url_for('categorieId', {id:  id}) }}"><h2 class="titreCategorie">{{ libelle }}</h2></a>
+        <p class="descriptionCategorie">{{ description }}</p>
+        <p>Id: {{ id }}</p>
+        <a href="{{ url_for('presta2cat', {id: id}) }}">Prestations de cette catégorie</a>
+    </div>
 {% endblock %}

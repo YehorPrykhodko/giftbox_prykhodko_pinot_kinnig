@@ -16,9 +16,9 @@ class Categorie extends \Illuminate\Database\Eloquent\Model
 	public $timestamps = false;
 	public $keyType="int";
 
-    public $fillable=['libelle','description'];
 
 	public function prestations(){
 		return $this->hasMany('gift\appli\core\domain\entities\Prestation','cat_id');
 	}
+
 }

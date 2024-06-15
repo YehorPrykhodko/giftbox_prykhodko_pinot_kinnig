@@ -1,0 +1,8 @@
+{% extends "squelette.html" %}
+
+{% block titre %}Formulaire Prestation{% endblock %}
+{% block main %}
+    <p>Update de prestation terminée</p>
+    <a href="{{ url_for('prestationId',{id:id}) }}">La voir</a>
+{% endblock %}
+

@@ -2,12 +2,16 @@
 
 namespace gift\appli\core\services;
 
+use Exception;
 use gift\appli\core\domain\entities\Categorie;
+use gift\appli\core\domain\entities\DBConnectionError;
 use gift\appli\core\domain\entities\Prestation;
-use gift\appli\core\services\ExceptionServices\DBException;
 use gift\appli\core\domain\entities\Box;
 use http\Message;
 use Illuminate\Database\Eloquent\InvalidCastException;
+use Illuminate\Database\Eloquent\MissingAttributeException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 
 class CatalogueEloquent
     implements CatalogueInterface
@@ -25,103 +29,115 @@ class CatalogueEloquent
     $cat=['libelle'=>'',
     'description'=>''];
      */
-    public function createCategorie($categorie): void
-    {
-        $cat=new Categorie();
-        $cat->libelle=$categorie['libelle'];
-        $cat->description=$categorie['description'];
-        $cat->save();
-
-    }
-
-
-    public function updatePrestation($modifPrestation): void{
-        $presta=Prestation::where('id','=',$modifPrestation->id)->update($modifPrestation);
-    }
+//    public function createCategorie($categorie): void
+//    {
+//        $cat=new Categorie();
+//        $cat->libelle=$categorie['libelle'];
+//    }
+//
+//
+//    public function updatePrestation($modifPrestation): void{
+//        $presta=Prestation::where('id','=',$modifPrestation->id)->update($modifPrestation);
+//    }
     public function getCategories(): array
     {
         try {
             $cat = Categorie::get();
-            return CatalogueEloquent::modelToArray($cat);
-        } catch (\Exception $e) {
-            $this->throwDBException($e);
+            return $cat->toArray();
+        } catch (Exception $e) {
+            throw $e;
         }
 
     }
 
-    public static function modelToArray($obj): array{
-        $retour=[];
-        foreach($obj as $o){
-            $retour[]=$o;
-        }
-        return($retour);
-    }
 
     public function getCategorieById(int $id): array
     {
         try {
-            $cat = Categorie::where("id", "=", $id)->get();
-            return CatalogueEloquent::modelToArray($cat);
-        } catch (\Exception $e) {
-            $this->throwDBException($e);
+            $cat = Categorie::find($id);
+            return $cat->toArray();
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
-    public function getPrestations():array{
-        try{
-            $presta=Prestation::get();
-            return CatalogueEloquent::modelToArray($presta);
-        }catch (\Exception $exception){
-            $this->throwDBException($exception);
+    public function getPrestations(): array
+    {
+        try {
+            $presta = Prestation::get();
+            return $presta->toArray();
+        } catch (QueryException $exception) {
+            throw new DBConnectionError("Database connection error");
+
         }
     }
 
     public function getPrestationById(string $id): array
     {
         try {
-            $presta = Prestation::where("id", "=", $id)->get();
-            return CatalogueEloquent::modelToArray($presta);
-        } catch (\Exception $e) {
-            $this->throwDBException($e);
+            $presta = Prestation::findOrFail($id);
+            return $presta->toArray();
+        } catch (ModelNotFoundException $e) {
+            throw new EntitesNotFound("Prestation $id not found");
         }
     }
 
-    /**
-     * @throws DBException
-     */
     public function getPrestationsbyCategorie(int $categ_id): array
     {
         try {
-//            $presta = Prestation::whereHas('categorie', function ($q) use ($categ_id) {
-//                $q->where("id", "=", $categ_id);
-//            });
-            $presta = Categorie::where("id", "=", $categ_id)->with('prestations')->get();
-            return CatalogueEloquent::modelToArray($presta);
-        } catch (\Exception $exception) {
-            $this->throwDBException($exception);
+            $presta = Categorie::where('id','=',$categ_id)->with('prestations')->get();
+            return $presta->toArray();
+        } catch (ModelNotFoundException $exception) {
+            throw new EntitesNotFound("Categorie $categ_id not found");
         }
     }
 
-    /**
-     * @throws DBException
-     */
-    private function throwDBException($exception)
+//    public function createBox(array $box): void
+//    {
+//        $box=new Box();
+//    }
+//
+//    public function getBoxById(int $id): array
+//    {
+//        return Box::where('id','=',$id)->get();
+//    }
+//
+//    public function getBoxs(): array
+//    {
+//        return Box::get();
+//    }
+    public function createCategorie($categorie)
     {
-        throw new DBException($exception->getMessage());
+        try {
+            $cat = new Categorie();
+            $cat->libelle = $categorie['libelle'];
+            $cat->description = $categorie['description'];
+            $cat->save();
+            return $cat->id;
+        }catch(QueryException $e){
+            throw new DBConnectionError("Erreur de base de donnée");
+        }
+
     }
 
-    public function createBox(array $box): void
-    {
-        $box=new Box();
-    }
 
-    public function getBoxById(int $id): array
-    {
-        return Box::where('id','=',$id)->get();
-    }
+    public function modifPrestation($prestation){
+        try{
+            $presta=Prestation::findOrFail($prestation['id']);
+            $presta->libelle=$prestation['libelle'];
+            $presta->description=$prestation['description'];
+            $presta->url=$prestation['url'];
+            $presta->unite=$prestation['unite'];
+            $presta->tarif=$prestation['tarif'];
+            $presta->img=$prestation['img'];
+            $presta->cat_id=$prestation['cat_id'];
+            $presta->save();
+            return($presta->id);
 
-    public function getBoxs(): array
-    {
-        return Box::get();
+        }catch (MissingAttributeException $e){
+            throw new EntitesNotFound("Il manque un champs");
+        }catch(ModelNotFoundException $e){
+            throw new EntitesNotFound("Id non valide");
+        }
     }
 }
