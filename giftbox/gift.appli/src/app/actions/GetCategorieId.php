@@ -3,41 +3,37 @@
 namespace gift\appli\app\actions;
 
 use gift\appli\app\actions\AbstractAction;
-use gift\appli\models\Categorie;
+use gift\appli\core\services\CatalogueService;
+use gift\appli\actions\exceptions\EntityNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
+use Slim\Views\Twig;
 
 class GetCategorieId extends AbstractAction
 {
-
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        if (!isset($args['id'])) {
-            throw new HttpBadRequestException($request, "id categorie manquant");
+        try {
+            $catalogueService = new CatalogueService();
+
+            if (!isset($args['id'])) {
+                throw new HttpBadRequestException($request, "id categorie manquant");
+            }
+
+            $id = (int)$args['id'];
+            $categorie = $catalogueService->getCategorieById($id);
+
+            if (!$categorie) {
+                throw new HttpNotFoundException($request, "id inexistant");
+            }
+
+            $twig = Twig::fromRequest($request);
+            return $twig->render($response, 'category.twig', compact('categorie'));
+        } catch (EntityNotFoundException $e) {
+            $response->getBody()->write($e->getMessage());
+            return $response->withStatus(404);
         }
-
-        $id = (int)$args['id'];
-        $categorie = Categorie::where("id","=",$id)->first();
-
-        if (!$categorie) {
-            throw new HttpNotFoundException($request, "id inexistant");
-        }
-
-        $html = <<<HTML
-        <html>
-        <head><title>{$categorie->libelle}</title></head>
-        <body>
-        <h1>{$categorie->libelle}</h1>
-        <p>ID: {$id}</p>
-        <p>Description: {$categorie->description}</p>
-        <a href="/categories">Retour a la liste des categories</a>
-        </body>
-        </html>
-        HTML;
-
-        $response->getBody()->write($html);
-        return $response;
     }
 }

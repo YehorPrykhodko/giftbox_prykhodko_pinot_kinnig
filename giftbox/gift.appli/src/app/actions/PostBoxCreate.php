@@ -5,20 +5,20 @@ namespace gift\appli\app\actions;
 use gift\appli\app\actions\AbstractAction;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Views\Twig;
 
 class PostBoxCreate extends AbstractAction
 {
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        $html = <<<HTML
-            <h2>NEW BOX</h2>
-            <div class = "libBox"> {$_POST['libelle']} </div>
-            <div class = "descBox"> {$_POST['description']} </div>
-            <div class = "montantBox"> {$_POST['montant']} </div>   
-        HTML;
+        $data = $request->getParsedBody();
+        $libelle = $data['libelle'] ?? 'N/A';
+        $description = $data['description'] ?? 'N/A';
+        $montant = $data['montant'] ?? 'N/A';
 
-        $response->getBody()->write($html);
-        return $response;
+        $twig = Twig::fromRequest($request);
+        return $twig->render($response, 'box_created.twig',
+            compact('libelle', 'description', 'montant'));
     }
 }

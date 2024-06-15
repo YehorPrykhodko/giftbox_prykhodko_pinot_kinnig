@@ -3,41 +3,24 @@
 namespace gift\appli\app\actions;
 
 use gift\appli\app\actions\AbstractAction;
-use gift\appli\models\Categorie;
+
+use gift\appli\core\domain\entities\Categorie;
+
+use gift\appli\core\services\CatalogueService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Views\Twig;
 
 class GetCategories extends AbstractAction
 {
+
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
+        $catalogueService = new CatalogueService();
 
-        $categories = Categorie::select("id","libelle")->get();
+        $categories = $catalogueService->getCategories();
+        $twig = Twig::fromRequest($request);
+        return $twig->render($response, 'categories.twig', compact('categories'));
 
-        if ($categories->isEmpty()) {
-            $response->getBody()->write('Aucune catégorie trouvée.');
-            return $response;
-        }
-
-        $html = <<<HTML
-        <html>
-        <head><title>Liste des Catégories</title></head>
-        <body>
-        <h1>Liste des Catégories</h1>
-        <ul>
-        HTML;
-
-        foreach ($categories as $categorie) {
-            $html .= "<li><a href='/categorie/{$categorie['id']}'>{$categorie['libelle']}</a></li>";
-        }
-
-        $html .= <<<HTML
-        </ul>
-        </body>
-        </html>
-        HTML;
-
-        $response->getBody()->write($html);
-        return $response;
     }
 }

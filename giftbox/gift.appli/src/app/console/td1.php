@@ -1,9 +1,9 @@
 <?php
 
-use gift\appli\models\Box;
-use gift\appli\models\Categorie;
-use gift\appli\models\Prestation;
-use gift\appli\models\User;
+use gift\appli\core\domain\entities\Prestation;
+use gift\appli\core\domain\entities\Categorie;
+use gift\appli\core\domain\entities\Box;
+use gift\appli\core\domain\entities\User;
 
 //Q1 lister les prestations ; pour chaque prestation, afficher le libellé, la description, le
 //tarif et l'unité.
