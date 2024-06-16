@@ -6,9 +6,9 @@ services:
   php:
     image: canals/php:latest
     volumes:
-      - ./public:/var/www/html
-      - ./src:/var/www/src
-      - ./shared/img:/var/www/html/img
+      - ./gift.appli/public:/var/www/html
+      - ./gift.appli/src:/var/www/src
+      - ./gift.appli/shared/img:/var/www/html/img
     working_dir: /var/www/src
     ports:
       - "3080:80"
@@ -38,4 +38,13 @@ services:
       - "3333:8080"
     networks:
       - giftbox.net
-
+  api:
+    image: canals/php:latest
+    volumes:
+      - ./gift.api/src:/var/www/src
+      - ./gift.api/public:/var/www/html
+    working_dir: /var/www/src
+    ports:
+      - "4480:80"
+    networks:
+      - giftbox.net
