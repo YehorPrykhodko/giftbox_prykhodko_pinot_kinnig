@@ -4,20 +4,31 @@
 {% block main %}
     <div class="prestations">
         <a href="{{ url_for('listPrestations') }}">Retour à la liste des prestations</a>
-            <div class="prestation">
+        <div class="prestationFull">
 
+            <div class="textPresta">
                 <a href="{{ url_for('prestationId',{id:id}) }}">
                     <div class="libellePres">{{ libelle }}</div>
                 </a>
-                <div class="idPres">{{ id }}</div>
-                <div class="descriptionPres">{{description }}</div>
-                <div class="urlPres">{{ url }}</div>
-                <div class="unitePres">{{ unite }}</div>
-                <div class="tarifPres">{{ tarif }}</div>
-                <div class="imgPres">{{ img }}</div>
-                <div class="cat_idPres">{{ cat_id }}</div>
-
+                <div class="descriptionPres">Description : {{ description }}</div>
+                <div class="urlPres">Url : <a href="{{ url }}">{{ url }}</a></div>
+                <div class="unitePres">Unite : {{ unite }}</div>
+                <div class="tarifPres">Tarif : {{ tarif }}€</div>
+                <div class="categoriePres">
+                    Categorie:
+                    <a href="{{ url_for('categorieId',{id:categorie.id}) }}">
+                        {{ categorie.libelle }}
+                    </a>
+                </div>
                 <a href="{{ url_for('updatePrestation',{id:id}) }}">La modifier</a>
+                <form class="ajouterPrestationButton" method="post">
+                    <input id="quantitePrestation" type="number" name="quantite" value="1">
+                    <input id="boutonAjouterPrestation" type="submit" value="Ajouter à la box">
+                </form>
             </div>
+            <div class="imagePrestaFull">
+                <img src="/img/{{ img }}" class="imgPresFull" alt="Image Prestation">
+            </div>
+        </div>
     </div>
 {% endblock %}

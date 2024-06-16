@@ -3,7 +3,7 @@
 namespace gift\appli\app\actions;
 
 use gift\appli\app\actions\AbstractAction;
-use gift\appli\core\services\CatalogueEloquent;
+use gift\appli\core\services\CatalogueGiftbox;
 use gift\appli\core\services\EntitesNotFound;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -36,7 +36,7 @@ class UpdatePrestation extends AbstractAction
         }
 
         $prestation['id'] = $args['id'];
-        $cata = new CatalogueEloquent();
+        $cata = new CatalogueGiftbox();
         try {
             $id = $cata->modifPrestation($prestation);
         } catch (EntitesNotFound $e) {

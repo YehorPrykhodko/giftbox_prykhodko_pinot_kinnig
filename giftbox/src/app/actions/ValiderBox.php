@@ -2,26 +2,28 @@
 
 namespace gift\appli\app\actions;
 
-use gift\appli\app\actions\AbstractAction;
 use gift\appli\core\services\CatalogueGiftbox;
 use gift\appli\core\services\EntitesNotFound;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpNotFoundException;
-use Slim\Views\Twig;
 
-class UpdatePrestationGet extends AbstractAction
+class ValiderBox extends AbstractAction
 {
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $cata=new CatalogueGiftbox();
+
+        if (!isset($_SESSION['idBoxCourant'])) {
+            throw new HttpNotFoundException($rq, "Pas de box séléctionné");
+        }
+        $idBox = $_SESSION['idBoxCourant'];
+        $cata = new CatalogueGiftbox();
         try {
-            $presta = $cata->getPrestationById($args['id']);
-        }catch (EntitesNotFound $e){
+            $cata->validerBox($idBox);
+        } catch (EntitesNotFound $e) {
             throw new HttpNotFoundException($rq,$e->getMessage());
         }
-        $view=Twig::fromRequest($rq);
-        return $view->render($rs,'formulaireUpdatePrestation.twig',['presta'=>$presta]);
+        return $rs->withStatus(302)->withHeader('Location', '/');
     }
 }

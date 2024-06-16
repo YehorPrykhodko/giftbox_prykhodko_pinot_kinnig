@@ -2,7 +2,7 @@
 
 namespace gift\appli\app\actions;
 
-use gift\appli\core\services\CatalogueEloquent;
+use gift\appli\core\services\CatalogueGiftbox;
 use Illuminate\Support\Facades\DB;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -15,7 +15,7 @@ class CategoriesAfficheId
 
     public function __invoke(Request $rq, Response $rs, $args): Response
     {
-        $cata = new CatalogueEloquent();
+        $cata = new CatalogueGiftbox();
         $cat = $cata->getCategorieById($args['id']);
         $view = Twig::fromRequest($rq);
         return $view->render($rs, 'categorieId.twig', $cat);

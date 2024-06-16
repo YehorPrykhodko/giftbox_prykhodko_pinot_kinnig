@@ -4,16 +4,29 @@
 
 
 {% block main %}
-    <div class="prestations">
+    <p id="headerListePrestation">{{ titreListe }}</p>
+    <div class="boutonTrier">
+        <a id="orderByAsc" href="?sort=price-asc">Trier par tarif croissant</a>
+        <a id="orderByDesc" href="?sort=price-desc">Trier par tarif decroissant</a>
+    </div>
+    <div class="prestationsListe">
         {% for pres in prestations %}
             <div class="prestation">
-
-                <a href="{{ url_for('prestationId',{id:pres.id}) }}">
-                    <div class="libellePres">{{ pres.libelle }}</div>
-                </a>
-                <div class="idPres">{{ pres.id }}</div>
-                <div class="descriptionPres">{{ pres.description }}</div>
-                <div class="idCat">{{ pres.id_cat }}</div>
+                <div class="libellePres">
+                    <a href="{{ url_for('prestationId',{id:pres.id}) }}">
+                        {{ pres.libelle }}
+                    </a>
+                </div>
+                <div class="categoriePres">
+                    Categorie:
+                    <a href="{{ url_for('categorieId',{id:pres.categorie.id}) }}">
+                        {{ pres.categorie.libelle }}
+                    </a>
+                </div>
+                {#                <div class="idPres">{{ pres.id }}</div> #}
+                {#                <div class="descriptionPres">{{ pres.description }}</div> #}
+                <div class="prixPres">Tarif {{ pres.tarif }}€</div>
+                <img src="/img/{{ pres.img }}" class="imgPres">
 
             </div>
         {% endfor %}

@@ -1,0 +1,36 @@
+{% extends "squelette.html" %}
+
+{% block titre %}Create Box{% endblock %}
+{% block main %}
+    <div class="box">
+        <p class="libelleBox">Box : {{ box.libelle }}</p>
+        <p class="descriptionBox">{{ box.description }}</p>
+        <p class="descriptionBox">{{ box.message_kdo }}</p>
+        {% if box.statut==3 %}
+            <p>Utilisable</p>
+            <form id="utiliserBox" method="post">
+                <input type="hidden" value="{{ box.id }}" name="box_id">
+                <input type="submit" value="Utiliser la box">
+            </form>
+        {% endif %}
+    </div>
+    <div class="prestaDeBox">
+        <p id="titreContenueBox">Contenu de la box:</p>
+        {% for pres in box.prestations %}
+            <div class="prestationBox">
+                <div>
+                    <div class="libellePres">
+                        <a href="{{ url_for('prestationId',{id:pres.id}) }}">
+                            {{ pres.libelle }}
+                        </a>
+                    </div>
+                    <p class="quantitePrestation">Quantité: {{ pres.pivot.quantite }}</p>
+                </div>
+                <div>
+                    <img class="icone" src="/img/{{ pres.img }}" alt="image icone prestation">
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+{% endblock %}

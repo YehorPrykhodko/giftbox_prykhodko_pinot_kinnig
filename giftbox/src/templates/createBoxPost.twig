@@ -1,0 +1,7 @@
+{% extends "squelette.html" %}
+
+{% block titre %}Create Box{% endblock %}
+{% block main %}
+    <p>Box créée</p>
+    <a href="{{ url_for('boxById',{id:idBox}) }}">La voir</a>
+{% endblock %}

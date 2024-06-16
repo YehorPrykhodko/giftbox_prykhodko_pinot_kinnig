@@ -1,7 +1,7 @@
 <?php
 namespace gift\appli\app\actions;
 use Error;
-use gift\appli\core\services\CatalogueEloquent;
+use gift\appli\core\services\CatalogueGiftbox;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
@@ -11,7 +11,7 @@ class CategoriesAffiches {
 
 public function __invoke(Request $rq, Response $rs, $args):Response{
         // try{
-    $cata=new CatalogueEloquent();
+    $cata=new CatalogueGiftbox();
     $cat=$cata->getCategories();
 
         $view=Twig::fromRequest($rq);

@@ -5,9 +5,13 @@ use gift\appli\core\domain\entities\Prestation;
 class Box extends \Illuminate\Database\Eloquent\Model
 {
 
-	protected $table = 'box';
+    const CREATED = 1;
+    const VALIDATED = 2;
+    const PAYED = 3;
+    const USED = 4;
+    protected $table = 'box';
 	protected  $primaryKey = 'id';
-	public $timestamps = false;
+	public $timestamps = true;
 	protected $keyType = 'string';
 	use \Illuminate\Database\Eloquent\Concerns\HasUuids;
 

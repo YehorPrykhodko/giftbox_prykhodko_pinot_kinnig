@@ -1,0 +1,59 @@
+{% extends "squelette.html" %}
+
+{% block titre %}Create Box{% endblock %}
+{% block main %}
+    <div class="box">
+        <p class="libelleBox">Box : {{ box.libelle }}</p>
+        <p class="descriptionBox">{{ box.description }}</p>
+        <p class="descriptionBox">{{ box.message_kdo }}</p>
+        {% if box.statut==1 %}
+            <p>Validable</p>
+            <a id="validerBox" href="{{ url_for('validerBox') }}">Valider la box</a>
+        {% endif %}
+        {% if box.statut==2 %}
+            <p>Payable</p>
+            <a id="payerBox" href="{{ url_for('payerBox') }}">Payer box</a>
+        {% endif %}
+        {% if box.statut==3 %}
+            <p>Payé</p>
+            <a href="{{ url_for('utiliserBox',{token:box.token}) }}">Lien pour utilisation</a>
+        {% endif %}
+
+        {% if box.statut==4 %}
+            <p>Utilisé</p>
+        {% endif %}
+    </div>
+    <div class="prestaDeBox">
+        <p id="titreContenueBox">Contenu de la box:</p>
+        {% for pres in box.prestations %}
+            <div class="prestationBox">
+                <div>
+                    <div class="libellePres">
+                        <a href="{{ url_for('prestationId',{id:pres.id}) }}">
+                            {{ pres.libelle }}
+                        </a>
+                    </div>
+                    <div class="categoriePres">
+                        Categorie:
+                        <a href="{{ url_for('categorieId',{id:pres.categorie.id}) }}">
+                            {{ pres.categorie.libelle }}
+                        </a>
+                    </div>
+                    <div class="prixPres">Tarif {{ pres.tarif }}€</div>
+                    <p class="quantitePrestation">Quantité: {{ pres.pivot.quantite }}</p>
+                    <form class="supprimerPrestation" action="{{ url_for('supprimerPrestation') }}" method="post">
+                        <input type="hidden" name="id_presta" value="{{ pres.id }}">
+                        <input class="boutonSuppression" type="submit" value="Enlever la prestation de la box">
+                    </form>
+                </div>
+                <div>
+                    <img class="icone" src="/img/{{ pres.img }}" alt="image icone prestation">
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+    <div id="total">
+        Prix total de la box : {{ montantTotal }}€
+    </div>
+{% endblock %}

@@ -1,0 +1,81 @@
+.imgPres {
+    width: 60%;
+}
+.prestationBox{
+    display:flex;
+    flex-direction: row;
+    padding: 1em;
+}
+.prestationFull{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    padding:2em;
+}
+#headerListePrestation{
+    font-size: 2em;
+    font-weight:bold;
+}
+.listeCategorie{
+    padding-left:2em;
+    padding-right:2em;
+}
+.libellePres{
+    font-size:1.5em;
+    font-weight:bold;
+}
+
+.prestationsListe{
+    display:flex;
+    flex-direction: row;
+    flex-flow:wrap;
+}
+.prestation{
+    width: 20%;
+    padding: 1.5em;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+main{
+    flex:1;
+}
+
+#navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#titreNavbar {
+    font-weight: bold;
+    font-size: 2em;
+    color: red;
+}
+
+#navbar > a {
+    padding: 1em;
+}
+
+footer {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4em;
+    background-image: url("http://localhost:3080/img/footer.png");
+    background-repeat: repeat-x;
+}
+
+footer > img {
+    height: inherit;
+    width: 100%;
+
+}
+.icone{
+    width:6em;
+    padding:1em;
+}

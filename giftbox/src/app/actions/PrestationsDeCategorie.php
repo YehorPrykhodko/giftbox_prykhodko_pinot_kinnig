@@ -2,7 +2,7 @@
 
 namespace gift\appli\app\actions;
 
-use gift\appli\core\services\CatalogueEloquent;
+use gift\appli\core\services\CatalogueGiftbox;
 use gift\appli\core\services\EntitesNotFound;
 use Illuminate\Database\QueryException;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -18,15 +18,21 @@ class PrestationsDeCategorie extends AbstractAction
 
     function __invoke(Request $rq, Response $rs, $args): Response
     {
-        $cata = new CatalogueEloquent();
+
+        if (isset($_GET['sort'])) {
+            $sort = $_GET['sort'];
+        } else {
+            $sort = '';
+        }
+        $cata = new CatalogueGiftbox();
         try {
-            $presta = $cata->getPrestationsbyCategorie($args['id']);
+            $presta = $cata->getPrestationsbyCategorie($args['id'],$sort);
         }catch (EntitesNotFound $e){
             throw new HttpNotFoundException($rq,$e->getMessage());
         }
-        // var_dump($presta);
+        $categ=$presta[0]['categorie']['libelle'];
         $view = Twig::fromRequest($rq);
-        return ($view->render($rs, "presta2cat.twig", ['cat' => $presta]));
+        return ($view->render($rs, "prestations.twig", ['prestations' => $presta,'titreListe'=>"Prestations de la categorie {$categ}"]));
     }
 
 }

@@ -1,0 +1,43 @@
+{% extends "squelette.html" %}
+
+{% block titre %}Create Box{% endblock %}
+{% block main %}
+
+    {#    // | libelle     | varchar(128)  | NO   |     | NULL                |       | #}
+    {#    // | description | text          | YES  |     | NULL                |       | #}
+    {#    // | montant     | decimal(12,2) | YES  |     | 0.00                |       | #}
+    {#    // | kdo         | tinyint(4)    | NO   |     | 0                   |       | #}
+    {#    // | message_kdo | text          | YES  |     | ''                  |       | #}
+    {#    // | statut      | int(11)       | NO   |     | 1                   |       | #}
+    {#    // | created_at  | datetime      | YES  |     | 0000-00-00 00:00:00 |       | #}
+    {#    // | updated_at  | datetime      | YES  |     | NULL                |       | #}
+    {#    // | createur_id | varchar(128)  | YES  |     | NULL                |       | #}
+    <form class="formulaireBox" method="post">
+
+        <label for="champLibelle">Libelle</label>
+        <input type="text" id="champLibelle"
+               name="libelle" required>
+
+        <label for="champDescription">Description</label>
+        <input type="text" id="champDescription"
+               name="description" required>
+
+        <label for="champMontant">Montant(€)</label>
+        <input type="number" id="champMontant"
+               name="montant" required>
+
+        <div id="champsCadeau">
+            <label for="champCadeau">C'est un cadeau</label>
+            <input type="checkbox" id="champCadeau"
+                   name="kdo" value="set">
+
+            <label for="champMessageCadeau">Message cadeau</label>
+            <input type="text" id="champMessageCadeau"
+                   name="message_kdo" >
+        </div>
+
+        <input type="hidden" name="csrf" value="{{ token }}">
+        <input type="submit" value="Submit">
+
+    </form>
+{% endblock %}

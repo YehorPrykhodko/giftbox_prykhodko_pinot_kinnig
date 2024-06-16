@@ -3,7 +3,8 @@
 namespace gift\appli\app\actions;
 
 use gift\appli\core\domain\entities\DBConnectionError;
-use gift\appli\core\services\CatalogueEloquent;
+use gift\appli\core\services\CatalogueGiftbox;
+use gift\appli\utils\CsrfToken;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,9 +17,18 @@ class CategorieCreatePost extends \gift\appli\app\actions\AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
+        try {
+            if (!isset($_POST['csrf'])) {
+                throw new \Exception();
+            }
+            CsrfToken::check($_POST['csrf']);
+        } catch (\Exception $e) {
+            throw new HttpNotFoundException($rq, 'Erreur de formulaire non valide');
+        }
+
         $champsCreateCategorie = [];
-        $champsCreateCategorie['libelle'] = filter_var($_POST['libelle'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $champsCreateCategorie['description'] =filter_var($_POST['description'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $champsCreateCategorie['libelle'] = filter_var($_POST['libelle'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $champsCreateCategorie['description'] = filter_var($_POST['description'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         $cle = array_keys($champsCreateCategorie);
         foreach ($cle as $c) {
@@ -31,14 +41,14 @@ class CategorieCreatePost extends \gift\appli\app\actions\AbstractAction
             }
         }
 
-        $cata=new CatalogueEloquent();
+        $cata = new CatalogueGiftbox();
         try {
-            $id=$cata->createCategorie($champsCreateCategorie);
+            $id = $cata->createCategorie($champsCreateCategorie);
         } catch (DBConnectionError $e) {
-            throw new HttpInternalServerErrorException($rq,$e->getMessage());
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'createCategoriePost.twig',['id'=>$id]);
+        return $view->render($rs, 'createCategoriePost.twig', ['id' => $id]);
     }
 }
