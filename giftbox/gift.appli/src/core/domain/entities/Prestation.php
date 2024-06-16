@@ -2,13 +2,15 @@
 
 namespace gift\appli\core\domain\entities;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
 class Prestation extends \Illuminate\Database\Eloquent\Model
 {
+    use HasUuids;
+
     protected $table = 'prestation';
     protected $primaryKey = 'id';
     public $timestamps = false;
-    public $incrementing = false;
-    public $keyType = 'string';
 
     public function boxes()
     {

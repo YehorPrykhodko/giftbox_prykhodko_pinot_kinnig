@@ -3,7 +3,7 @@ namespace gift\appli\core\services;
 
 use gift\appli\app\utils\CsrfService;
 use gift\appli\core\domain\entities\Box;
-use gift\appli\core\services\exceptions\EntityValidationException;
+use gift\appli\core\services\exceptions\ValidationException;
 
 class BoxService implements BoxServiceInterface {
     public function createBox(array $data): int {
@@ -15,7 +15,7 @@ class BoxService implements BoxServiceInterface {
         $url = filter_var($data['url'] ?? '', FILTER_SANITIZE_URL);
 
         if ($libelle !== $data['libelle'] || $description !== $data['description']) {
-            throw new EntityValidationException("Les données ne sont pas valides");
+            throw new ValidationException("Les données ne sont pas valides");
         }
 
         $box = new Box([
