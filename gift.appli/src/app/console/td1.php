@@ -5,7 +5,7 @@ use Illuminate\Database\Capsule\Manager as DB;
 
 $db = new DB();
 //fichier de config db sql
-$db->addConnection(parse_ini_file(__DIR__ . '/../../conf/gift.db.conf.ini.dist'));
+$db->addConnection(parse_ini_file(__DIR__ . '/../../conf/gift.db.conf.ini'));
 //Ne pas oublier de créer le fichier/changer les paramètres de configurations à l'interieur du fichier
 $db->setAsGlobal(); 
 $db->bootEloquent();
