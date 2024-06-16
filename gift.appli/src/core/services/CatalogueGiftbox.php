@@ -127,7 +127,7 @@ class CatalogueGiftbox
         }
     }
 
-    public function createBox(array $boxChamps, $userMail): mixed
+    public function createBox(array $boxChamps, $userId): mixed
     {
         $box = new Box();
         $box->libelle = $boxChamps['libelle'];
@@ -138,9 +138,8 @@ class CatalogueGiftbox
         $box->statut = $boxChamps['statut'];
         $box->token = $boxChamps['token'];
 
-        $userBox=User::where('user_id','=',$userMail)->first();
 
-        $box->createur_id=$userBox->id;
+        $box->createur_id=$userId;
         $box->save();
 
         return $box->id;
@@ -223,7 +222,7 @@ class CatalogueGiftbox
         }
     }
 
-    public function validerBox(mixed $idBox,$userMail)
+    public function validerBox(mixed $idBox,$userId)
     {
         try {
             $box = Box::with('prestations')->with('user')->findOrFail($idBox);
@@ -234,12 +233,8 @@ class CatalogueGiftbox
             if (count($cat) < 2) {
                 throw new EntitesNotFound('Moins de deux prestations dans la box');
             }
-            var_dump($box->toArray());
             $userBox=$box->user->id;
-            $userId=User::where('user_id','=',$userMail)->first();
-            var_dump($userBox);
-            var_dump($userId->id);
-            if($userBox!=$userId->id){
+            if($userBox!=$userId){
                 throw new EntitesNotFound("Mauvais user, validation impossible");
             }
             $box->statut = Box::VALIDATED;
@@ -298,5 +293,18 @@ class CatalogueGiftbox
         } catch (ModelNotFoundException $e) {
             throw new EntitesNotFound("Box non trouvé");
         }
+    }
+
+    public function userBoxs(mixed $user_mail)
+    {
+        try {
+            $boxs = Box::whereHas('user', function ($query) use ($user_mail) {
+                $query->where('user_id','=',$user_mail);
+            })->get();
+            return $boxs;
+        } catch (ModelNotFoundException $exception) {
+
+        }
+
     }
 }

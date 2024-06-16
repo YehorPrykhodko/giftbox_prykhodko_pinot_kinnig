@@ -6,14 +6,20 @@ use gift\appli\app\actions\BoxActuelle;
 use gift\appli\app\actions\BoxById;
 use gift\appli\app\actions\CategorieCreatePost;
 use gift\appli\app\actions\CreateCategorieGet;
+use gift\appli\app\actions\GetCoffretCreate;
 use gift\appli\app\actions\GetLoginForm;
 use gift\appli\app\actions\GetLogout;
+use gift\appli\app\actions\GetPredefinedBoxDetails;
+use gift\appli\app\actions\GetPredefinedBoxes;
 use gift\appli\app\actions\GetRegisterForm;
+use gift\appli\app\actions\GetUserBoxes;
 use gift\appli\app\actions\PayerBox;
+use gift\appli\app\actions\PostCoffretCreate;
 use gift\appli\app\actions\PostLogin;
 use gift\appli\app\actions\PostRegister;
 use gift\appli\app\actions\UpdatePrestation;
 use gift\appli\app\actions\UpdatePrestationGet;
+use gift\appli\core\services\auth\Auth;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;
@@ -80,7 +86,17 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->post('/login', PostLogin::class);
 
+    $app->get('/user/boxes', GetUserBoxes::class)->add(Auth::class)->setName('userBoxs');
+
     $app->get('/logout', GetLogout::class)->setName('logout');
+
+    $app->get('/predefined_boxes', GetPredefinedBoxes::class)->setName('predefinedBoxs');
+
+    $app->get('/predefined_box/{id}', GetPredefinedBoxDetails::class);
+
+    $app->get('/coffret/create', GetCoffretCreate::class)->setName('coffretCreate')->add(Auth::class);
+
+    $app->post('/coffret/create', PostCoffretCreate::class)->add(Auth::class);
 
 
     return $app;

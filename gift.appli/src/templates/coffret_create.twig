@@ -1,0 +1,32 @@
+{% extends "squelette.html" %}
+
+{% block titre %}Create Box{% endblock %}
+{% block main %}
+<h1>Create Pre-filled Box</h1>
+<form method="post" action="/coffret/create">
+    <label for="libelle">Libelle:</label>
+    <input type="text" id="libelle" name="libelle" required><br><br>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description"></textarea><br><br>
+
+    <label for="predefined_box_id">Predefined Box:</label>
+    <select id="predefined_box_id" name="predefined_box_id">
+        <option value="">None</option>
+        {% for box in predefined_boxes %}
+            <option value="{{ box.id }}" {% if selected_box and selected_box.id == box.id %}selected{% endif %}>
+                {{ box.libelle }}
+            </option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="kdo">Kdo:</label>
+    <input type="checkbox" id="kdo" name="kdo" value="1"><br><br>
+
+    <label for="message_kdo">Message Kdo:</label>
+    <textarea id="message_kdo" name="message_kdo"></textarea><br><br>
+
+    <button type="submit">Create Box</button>
+</form>
+
+{% endblock %}

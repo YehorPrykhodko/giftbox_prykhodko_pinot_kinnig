@@ -51,12 +51,12 @@ class BoxCreatePost
             }
         }
 
-        $user = $_SESSION['user'];
+        $userId = $_SESSION['user']['id'];
 
         $data['token'] = bin2hex(random_bytes(32));
         $data['statut'] = Box::CREATED;
         $cata = new CatalogueGiftbox();
-        $idBox = $cata->createBox($data, $user);
+        $idBox = $cata->createBox($data, $userId);
 
         $_SESSION['idBoxCourant'] = $idBox;
         $view = Twig::fromRequest($rq);

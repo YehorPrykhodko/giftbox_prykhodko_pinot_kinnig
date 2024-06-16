@@ -1,0 +1,13 @@
+{% extends "squelette.html" %}
+
+{% block titre %}Create Box{% endblock %}
+{% block main %}
+    {% for box in boxs %}
+    <div class="box">
+        <p class="libelleBox">Box : <a href="{{ url_for('boxById',{id:box.id}) }}">{{ box.libelle }}</a></p>
+        <p class="descriptionBox">{{ box.description }}</p>
+        <p class="descriptionBox">{{ box.message_kdo }}</p>
+    </div>
+    {% endfor %}
+
+{% endblock %}

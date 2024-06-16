@@ -1,0 +1,14 @@
+
+{% extends "squelette.html" %}
+
+{% block titre %}Create Box{% endblock %}
+{% block main %}
+    <h1>My Boxes</h1>
+    <ul>
+        {% for box in boxes %}
+            <li>
+                <a href="/box/{{ box.id }}">{{ box.libelle }}</a> - {{ box.status }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

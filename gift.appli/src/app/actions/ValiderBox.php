@@ -21,7 +21,7 @@ class ValiderBox extends AbstractAction
         $idBox = $_SESSION['idBoxCourant'];
         $cata = new CatalogueGiftbox();
         try {
-            $cata->validerBox($idBox,$_SESSION['user']);
+            $cata->validerBox($idBox,$_SESSION['user']['id']);
         } catch (EntitesNotFound $e) {
             throw new HttpNotFoundException($rq,$e->getMessage());
         }

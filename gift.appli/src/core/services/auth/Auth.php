@@ -16,7 +16,8 @@ class Auth implements AuthInterface
         $user = User::where('user_id', '=', $email)->first();
         if ($user && password_verify($password, $user->password)) {
             $_SESSION['user'] = [
-                'user_id' => $user->user_id,
+                'id' => $user->id,
+                'email' => $user->user_id,
             ];
             return true;
         }
