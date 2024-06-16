@@ -11,11 +11,15 @@
 <div id="navbar">
     <p id="titreNavbar">Giftbox</p>
     <a href="{{url_for('racine')}}">Accueil</a>
+    <a href="{{url_for('login')}}">Login</a>
+    <a href="{{url_for('register')}}">Register</a>
+    <a href="{{url_for('logout')}}">Logout</a>
     <a href="{{url_for('listPrestations')}}">Prestations</a>
     <a href="{{url_for('listCategories')}}">Catégories</a>
     <a href="{{url_for('createBox')}}">Créer box</a>
     <a href="{{url_for('createCategorie')}}">Créer catégorie</a>
     <a href="{{url_for('boxActuelle')}}">Box actuelle</a>
+
 </div>
 <main>
     {% block main %}

@@ -35,7 +35,7 @@ class BoxCreatePost
             $_POST['kdo'] = 1;
         } else {
             $data['message_kdo'] = '';
-            $_POST['message_kdo']='';
+            $_POST['message_kdo'] = '';
             $data['kdo'] = 0;
             $_POST['kdo'] = 0;
         }
@@ -51,12 +51,14 @@ class BoxCreatePost
             }
         }
 
+        $user = $_SESSION['user'];
+
         $data['token'] = bin2hex(random_bytes(32));
         $data['statut'] = Box::CREATED;
         $cata = new CatalogueGiftbox();
-        $idBox = $cata->createBox($data);
+        $idBox = $cata->createBox($data, $user);
 
-        $_SESSION['idBoxCourant']=$idBox;
+        $_SESSION['idBoxCourant'] = $idBox;
         $view = Twig::fromRequest($rq);
         return $view->render($rs, 'createBoxPost.twig', ['idBox' => $idBox]);
     }

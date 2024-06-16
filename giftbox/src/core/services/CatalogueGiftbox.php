@@ -7,6 +7,7 @@ use gift\appli\core\domain\entities\Categorie;
 use gift\appli\core\domain\entities\DBConnectionError;
 use gift\appli\core\domain\entities\Prestation;
 use gift\appli\core\domain\entities\Box;
+use gift\appli\core\domain\entities\User;
 use http\Message;
 use Illuminate\Database\Eloquent\InvalidCastException;
 use Illuminate\Database\Eloquent\MissingAttributeException;
@@ -126,7 +127,7 @@ class CatalogueGiftbox
         }
     }
 
-    public function createBox(array $boxChamps): mixed
+    public function createBox(array $boxChamps, $userMail): mixed
     {
         $box = new Box();
         $box->libelle = $boxChamps['libelle'];
@@ -136,7 +137,12 @@ class CatalogueGiftbox
         $box->message_kdo = $boxChamps['message_kdo'];
         $box->statut = $boxChamps['statut'];
         $box->token = $boxChamps['token'];
+
+        $userBox=User::where('user_id','=',$userMail)->first();
+
+        $box->createur_id=$userBox->id;
         $box->save();
+
         return $box->id;
 
     }
@@ -217,18 +223,24 @@ class CatalogueGiftbox
         }
     }
 
-    public function validerBox(mixed $idBox)
+    public function validerBox(mixed $idBox,$userMail)
     {
         try {
-            $box = Box::with('prestations')->findOrFail($idBox);
+            $box = Box::with('prestations')->with('user')->findOrFail($idBox);
             $cat = [];
             foreach ($box->prestations as $b) {
-                var_dump($b->cat_id);
                 $cat[$b->cat_id] = 1;
             }
-            var_dump($cat);
             if (count($cat) < 2) {
                 throw new EntitesNotFound('Moins de deux prestations dans la box');
+            }
+            var_dump($box->toArray());
+            $userBox=$box->user->id;
+            $userId=User::where('user_id','=',$userMail)->first();
+            var_dump($userBox);
+            var_dump($userId->id);
+            if($userBox!=$userId->id){
+                throw new EntitesNotFound("Mauvais user, validation impossible");
             }
             $box->statut = Box::VALIDATED;
             $box->save();

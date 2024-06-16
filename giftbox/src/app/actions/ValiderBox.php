@@ -17,10 +17,11 @@ class ValiderBox extends AbstractAction
         if (!isset($_SESSION['idBoxCourant'])) {
             throw new HttpNotFoundException($rq, "Pas de box séléctionné");
         }
+
         $idBox = $_SESSION['idBoxCourant'];
         $cata = new CatalogueGiftbox();
         try {
-            $cata->validerBox($idBox);
+            $cata->validerBox($idBox,$_SESSION['user']);
         } catch (EntitesNotFound $e) {
             throw new HttpNotFoundException($rq,$e->getMessage());
         }

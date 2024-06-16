@@ -4,10 +4,14 @@ declare(strict_types=1);
 use gift\appli\app\actions\AjouterPrestationToBox;
 use gift\appli\app\actions\BoxActuelle;
 use gift\appli\app\actions\BoxById;
-use gift\appli\app\actions\CategorieCreateFormulaire;
 use gift\appli\app\actions\CategorieCreatePost;
 use gift\appli\app\actions\CreateCategorieGet;
+use gift\appli\app\actions\GetLoginForm;
+use gift\appli\app\actions\GetLogout;
+use gift\appli\app\actions\GetRegisterForm;
 use gift\appli\app\actions\PayerBox;
+use gift\appli\app\actions\PostLogin;
+use gift\appli\app\actions\PostRegister;
 use gift\appli\app\actions\UpdatePrestation;
 use gift\appli\app\actions\UpdatePrestationGet;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -32,27 +36,18 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->post('/categorie/create[/]', CategorieCreatePost::class);
 
-    $app->post('/box/create[/]', BoxCreatePost::class); //twigOk
+    $app->post('/box/create[/]', BoxCreatePost::class)->add(\gift\appli\core\services\auth\Auth::class); //twigOk
 
-    $app->get('/box/create[/]', BoxCreateGet::class)->setName('createBox');//twigOk
+    $app->get('/box/create[/]', BoxCreateGet::class)->setName('createBox')->add(\gift\appli\core\services\auth\Auth::class);//twigOk
 
     $app->get('/box/{id}[/]', BoxById::class)->setName('boxById');
 
-    $app->get('/validerBox[/]', \gift\appli\app\actions\ValiderBox::class)->setName('validerBox');
+    $app->get('/validerBox[/]', \gift\appli\app\actions\ValiderBox::class)->setName('validerBox')->add(\gift\appli\core\services\auth\Auth::class);
 
-    $app->get('/payerBox[/]',PayerBox::class)->setName('payerBox');
+    $app->get('/payerBox[/]', PayerBox::class)->setName('payerBox')->add(\gift\appli\core\services\auth\Auth::class);
 
-    $app->post('/supprimerPrestation[/]',\gift\appli\app\actions\SupprimmerPrestation::class)->setName('supprimerPrestation');
+    $app->post('/supprimerPrestation[/]', \gift\appli\app\actions\SupprimmerPrestation::class)->setName('supprimerPrestation')->add(\gift\appli\core\services\auth\Auth::class);
 
-    $app->get('/test[/]', function (Request $rq, Response $rs, $args) {
-
-        $categorie = ['libelle' => 'superlibelle',
-            'description' => 'abba'];
-        $cata = new \gift\appli\core\services\CatalogueGiftbox();
-        $cata->createCategorie($categorie);
-        $view = Twig::fromRequest($rq);
-        return ($view->render($rs, 'presta2cat.twig', []));
-    });
     $app->get('[/]', Racine::class)->setName('racine');
 
 
@@ -73,8 +68,19 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->get('/categories/{id:\d+}[/]', CategoriesAfficheId::class)->setName('categorieId');
 
-    $app->get('/utiliserBox/{token}[/]',\gift\appli\app\actions\PageUniqueBox::class)->setName('utiliserBox');
-    $app->post('/utiliserBox/{token}[/]',\gift\appli\app\actions\UtiliserBox::class);
+    $app->get('/utiliserBox/{token}[/]', \gift\appli\app\actions\PageUniqueBox::class)->setName('utiliserBox')->add(\gift\appli\core\services\auth\Auth::class);
+    $app->post('/utiliserBox/{token}[/]', \gift\appli\app\actions\UtiliserBox::class)->add(\gift\appli\core\services\auth\Auth::class);
+
+
+    $app->get('/register', GetRegisterForm::class)->setName('register');
+
+    $app->post('/register', PostRegister::class);
+
+    $app->get('/login', GetLoginForm::class)->setName('login');
+
+    $app->post('/login', PostLogin::class);
+
+    $app->get('/logout', GetLogout::class)->setName('logout');
 
 
     return $app;
