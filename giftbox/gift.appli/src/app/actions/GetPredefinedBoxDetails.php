@@ -1,0 +1,26 @@
+<?php
+
+namespace gift\appli\app\actions;
+
+use gift\appli\core\domain\entities\Box;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Slim\Views\Twig;
+
+class GetPredefinedBoxDetails extends AbstractAction
+{
+
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $boxId = $args['id'];
+
+        $box = Box::with('prestations')->where('id', $boxId)->where('statut', 1)->first();
+
+        if (!$box) {
+            return $response->withStatus(404);
+        }
+
+        $twig = Twig::fromRequest($request);
+        return $twig->render($response, 'predefined_box_details.twig', compact('box'));
+    }
+}

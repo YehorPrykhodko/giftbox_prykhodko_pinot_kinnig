@@ -14,7 +14,7 @@ class Racine extends AbstractAction
     {
         $twig = Twig::fromRequest($request);
         $isAuthenticated = isset($_SESSION['user']);
-        $userEmail = $isAuthenticated ? $_SESSION['user']['user_id'] : null;
+        $userEmail = $isAuthenticated ? $_SESSION['user']['email'] : null;
 
         return $twig->render($response, 'index.twig', [
             'is_authenticated' => $isAuthenticated,

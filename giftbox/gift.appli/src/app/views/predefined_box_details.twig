@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ box.libelle }}</title>
+</head>
+<body>
+    <h1>{{ box.libelle }}</h1>
+    <p>Description: {{ box.description }}</p>
+    <ul>
+        {% for prestation in box.prestations %}
+            <li>{{ prestation.libelle }} - {{ prestation.tarif }} {{ prestation.unite }} x {{ prestation.pivot.quantite }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/coffret/create?predefined_box_id={{ box.id }}">Create a Coffret from this Box</a>
+</body>
+</html>

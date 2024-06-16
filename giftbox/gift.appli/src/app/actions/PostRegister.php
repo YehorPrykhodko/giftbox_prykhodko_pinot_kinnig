@@ -37,7 +37,7 @@ class PostRegister extends AbstractAction
             $twig = Twig::fromRequest($request);
             return $twig->render($response, 'register.twig', [
                 'error' => $e->getMessage(),
-            ])->withStatus(400);
+            ]);
         }
     }
 }

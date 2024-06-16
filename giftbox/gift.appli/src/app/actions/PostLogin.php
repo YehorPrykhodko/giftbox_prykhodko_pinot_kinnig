@@ -25,7 +25,7 @@ class PostLogin extends AbstractAction
             $twig = Twig::fromRequest($request);
             return $twig->render($response, 'login.twig', [
                 'error' => 'Invalid email or password',
-            ])->withStatus(401);
+            ]);
         }
     }
 }

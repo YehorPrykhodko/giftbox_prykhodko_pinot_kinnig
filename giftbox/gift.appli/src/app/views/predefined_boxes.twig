@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predefined Boxes</title>
+</head>
+<body>
+    <h1>Predefined Boxes</h1>
+    <ul>
+        {% for box in boxes %}
+            <li>
+                <a href="/predefined_box/{{ box.id }}">{{ box.libelle }}</a> - {{ box.description }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Box Details</title>
+</head>
+<body>
+    <h1>{{ box.libelle }}</h1>
+    <p>Description: {{ box.description }}</p>
+    <p>Status: {{ box.status }}</p>
+    <p>Montant: {{ box.montant }}</p>
+    <ul>
+        {% for prestation in box.prestations %}
+            <li>{{ prestation.libelle }} - {{ prestation.tarif }} {{ prestation.unite }} x {{ prestation.pivot.quantite }}</li>
+        {% endfor %}
+    </ul>
+    {% if box.status == 'CREATED' %}
+        <a href="/box/{{ box.id }}/edit">Edit</a>
+    {% endif %}
+</body>
+</html>
