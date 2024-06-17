@@ -5,8 +5,8 @@
 Kinnig Félicien  (N'a pas participé, aucun push sur le repository ni de communication)  
 Pinot Gaëtan (Fonctionnalité 1 à 14)  
 Prykhodko Yehor (Fonctionnalité 15 à 24)  
-A cause d'une mauvaise organisation, nous avons du combiner manuellement notre travail sur la branche main, c'est pour
-ça qu'il apparait donc que Gaëtan ai fait plus de commit que Yehor, mais sur la branche `Production` vous pouvez voir
+A cause d'une mauvaise organisation, nous avons du combiner manuellement notre travail sur la branche `main`, c'est pour
+ça qu'il apparait donc que Gaëtan ai fait plus de commits que Yehor, mais sur la branche `Production` vous pouvez voir
 les commits effectué par Yehor.
 
 ## Installation

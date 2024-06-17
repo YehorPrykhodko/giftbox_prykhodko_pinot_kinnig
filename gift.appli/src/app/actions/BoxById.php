@@ -3,8 +3,10 @@
 namespace gift\appli\app\actions;
 
 use gift\appli\core\services\CatalogueGiftbox;
+use gift\appli\core\services\EntitesNotFound;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Views\Twig;
 
 class BoxById extends AbstractAction
@@ -14,7 +16,11 @@ class BoxById extends AbstractAction
     {
 
         $cata=new CatalogueGiftbox();
-        $data=$cata->getBoxById($args['id']);
+        try {
+            $data = $cata->getBoxById($args['id']);
+        } catch (EntitesNotFound $e) {
+            throw new HttpNotFoundException($rq,$e->getMessage());
+        }
 
 //        var_dump($data);
         $prixTotal=0;

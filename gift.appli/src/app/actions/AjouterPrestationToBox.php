@@ -4,6 +4,7 @@ namespace gift\appli\app\actions;
 
 use gift\appli\core\domain\entities\Box;
 use gift\appli\core\services\CatalogueGiftbox;
+use gift\appli\core\services\EntitesNotFound;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpNotFoundException;
@@ -31,10 +32,14 @@ class AjouterPrestationToBox extends AbstractAction
 
         $cata = new CatalogueGiftbox();
 
+        try {
         if ($cata->getBoxState($boxId) != Box::CREATED) {
             throw new HttpNotFoundException($rq, "Box déjà validé ou payé");
         }
-        $cata->ajouterPrestationToBox($args['id'], $boxId, $quantite);
+            $cata->ajouterPrestationToBox($args['id'], $boxId, $quantite);
+        } catch (EntitesNotFound $e) {
+            throw new HttpNotFoundException($rq,$e->getMessage());
+        }
         var_dump($boxId);
         var_dump($args['id']);
         return $rs->withStatus(302)->withHeader('Location', '/prestations');
