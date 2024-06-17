@@ -1,4 +1,4 @@
-# giftbox_prykhodko_pinot_kinnig
+# giftbox_prykhodko_pinot
 
 ## Repartition des taches
 
@@ -23,15 +23,16 @@ en `gift.db.conf.ini`.
 Ils doivent contenir les informations necessaire pour se connecter à la base de donnée, les informations doivent
 concorder avec le fichier `.env`
 
-### Composer
-
-Faire un `composer install` dans le dossier `src` de `gift.appli` et `gift.api`
 
 ### Demmarrage
 
 Faire un `docker compose up -d` pour demarrer les containeur.  
 Remplir la base de donnée avec le fichier `giftbox.data.sql` grace soit à adminer au port spécifié dans
 le `docker-compose.yml` et les logins spécifié dans le `.env`, soit avec un cli mysql ou mariadb
+
+### Composer
+
+Faire un `docker compose exec php composer install` et `docker compose exec api composer install` pour installer les dependances et l'autoloader avec le composer des containers
 
 ### Cache
 
@@ -41,8 +42,7 @@ J'ai eu des problèmes certaines fois avec le dossier `cache` dans `src`, il à 
 
 ### API
 
-Il y a un dossier `giftboxApiBruno` qui devrait normalement pouvoir permettre de tester les appelles à l'api sans avoir
-à fouiller.
+Il y a un dossier `giftboxApiBruno` qui devrait normalement pouvoir permettre de tester les appelles à l'api sur un déployement local sans avoir à fouiller dans le fichier `routes.php` et le `docker-compose.yml`
 
 ### Appli
 
@@ -54,10 +54,12 @@ Une fois connécté vous pouvez créer une box avec le lien dans la navbar, une 
 Vous pouvez valider la prestation ce qui bloque la modification.
 Pour valider la prestations il faut avoir au moins 2 prestations de categorie differentes.  
 Si vous faites quelque chose qui engendre une erreur vous êtes sensé recevoir une erreur 404 avec un message qui vous indique la raison.  
+Le reste des fonctionnalités fonctionne comme décrit dans le sujet détaillé.  
+
 
 ### Docketu
 
-Le site est normalement déployé sur `docketu.iutnc.univ-lorraine.fr:56580` [Ici](docketu.iutnc.univ-lorraine.fr:56580), et l'api `docketu.iutnc.univ-lorraine.fr:56584` [Ici](docketu.iutnc.univ-lorraine.fr:56584).
+Le site est normalement déployé sur `docketu.iutnc.univ-lorraine.fr:56580` [Ici](http://docketu.iutnc.univ-lorraine.fr:56580), et l'api `docketu.iutnc.univ-lorraine.fr:56584` [Ici](http://docketu.iutnc.univ-lorraine.fr:56584).
 
 
 
