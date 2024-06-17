@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html>
+{% block navbar %}
 
-<head>
-    <title>{% block titre%}{%endblock%} - Giftbox</title>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="/css/index.css">
-</head>
-
-<body>
-<div id="navbar">
     <p id="titreNavbar">Giftbox</p>
     <a href="{{url_for('racine')}}">Accueil</a>
     <a href="{{url_for('login')}}">Login</a>
@@ -23,15 +14,4 @@
     <a href="{{url_for('coffretCreate')}}">Créer une box depuis un coffret predifinie</a>
     <a href="{{url_for('predefinedBoxs')}}">Coffret predifini</a>
 
-</div>
-<main>
-    {% block main %}
-    {% endblock %}
-</main>
-
-<footer>
-
-</footer>
-</body>
-
-</html>
+{% endblock %}

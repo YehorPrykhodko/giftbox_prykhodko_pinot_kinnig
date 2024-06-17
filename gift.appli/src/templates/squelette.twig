@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block titre %}{% endblock %} - Giftbox</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+<div id="navbar">
+    {% use 'navbar.twig' with navbar as NAVBAR %}
+    {% block navbar %}
+        {{ block('NAVBAR') }}
+    {% endblock %}
+</div>
+<main>
+    {% block main %}
+    {% endblock %}
+</main>
+
+<footer>
+
+</footer>
+</body>
+
+</html>

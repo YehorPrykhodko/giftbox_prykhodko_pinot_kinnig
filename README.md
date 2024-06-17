@@ -33,6 +33,10 @@ Faire un `docker compose up -d` pour demarrer les containeur.
 Remplir la base de donnée avec le fichier `giftbox.data.sql` grace soit à adminer au port spécifié dans
 le `docker-compose.yml` et les logins spécifié dans le `.env`, soit avec un cli mysql ou mariadb
 
+### Cache
+
+J'ai eu des problèmes certaines fois avec le dossier `cache` dans `src`, il à fallut soit que je supprime celui créer par défaut et que je le remplace par un que j'ai créer moi meme soit que j'y attribue tout les droits.
+
 ## Test
 
 ### API
@@ -44,5 +48,18 @@ Il y a un dossier `giftboxApiBruno` qui devrait normalement pouvoir permettre de
 
 Vous pouvez créer un utilisateur ou simplement utiliser un compte déjà créer comme celui de `simone24@example.com` avec
 le mdp `simone24`.
+
+#### Boxs
+Une fois connécté vous pouvez créer une box avec le lien dans la navbar, une fois créée la box est enregistré en session et vous pouvez y rajouter des prestations en allant sur les prestations et en cliquant sur ajouter.  
+Vous pouvez valider la prestation ce qui bloque la modification.
+Pour valider la prestations il faut avoir au moins 2 prestations de categorie differentes.  
+Si vous faites quelque chose qui engendre une erreur vous êtes sensé recevoir une erreur 404 avec un message qui vous indique la raison.  
+
+### Docketu
+
+Le site est normalement déployé sur `docketu.iutnc.univ-lorraine.fr:56580` [Ici](docketu.iutnc.univ-lorraine.fr:56580), et l'api `docketu.iutnc.univ-lorraine.fr:56584` [Ici](docketu.iutnc.univ-lorraine.fr:56584).
+
+
+
 
 
