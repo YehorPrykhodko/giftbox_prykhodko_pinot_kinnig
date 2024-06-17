@@ -1,5 +1,9 @@
 # giftbox_prykhodko_pinot
 
+## Git
+
+Depot Git : [https://github.com/YehorPrykhodko/giftbox_prykhodko_pinot_kinnig](https://github.com/YehorPrykhodko/giftbox_prykhodko_pinot_kinnig)
+
 ## Repartition des taches
 
 Kinnig Félicien  (N'a pas participé, aucun push sur le repository ni de communication)  
