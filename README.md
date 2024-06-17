@@ -6,7 +6,7 @@ Depot Git : [https://github.com/YehorPrykhodko/giftbox_prykhodko_pinot_kinnig](h
 
 ## Repartition des taches
 
-Kinnig Félicien  (N'a pas participé, aucun push sur le repository ni de communication)  
+Kinnig Félicien  (N'a pas participé, aucun push sur le repository ni de communication)  Félicien : Il n'y a pas eu d'essai de communication des autres membres du groupe, je ne suis pas venu en cours a cause de problèmes mentale mais j'ai quand même essayer de bosser chez moi, les autres membres du groupe ne m'ont jamaiis communiquer quelle tâches je suis censer faire
 Pinot Gaëtan (Fonctionnalité 1 à 14)  
 Prykhodko Yehor (Fonctionnalité 15 à 24)  
 A cause d'une mauvaise organisation, nous avons du combiner manuellement notre travail sur la branche `main`, c'est pour
