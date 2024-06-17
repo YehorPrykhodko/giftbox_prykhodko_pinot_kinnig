@@ -63,7 +63,7 @@ Le reste des fonctionnalités fonctionne comme décrit dans le sujet détaillé.
 
 ### Docketu
 
-Le site est normalement déployé sur `docketu.iutnc.univ-lorraine.fr:56580` [Ici](http://docketu.iutnc.univ-lorraine.fr:56580), et l'api `docketu.iutnc.univ-lorraine.fr:56584` [Ici](http://docketu.iutnc.univ-lorraine.fr:56584).
+Le site est normalement déployé sur `docketu.iutnc.univ-lorraine.fr:56580` [Ici](http://docketu.iutnc.univ-lorraine.fr:56580), et l'api `docketu.iutnc.univ-lorraine.fr:56583` [Ici](http://docketu.iutnc.univ-lorraine.fr:56583).
 
 
 
